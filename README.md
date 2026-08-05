@@ -112,3 +112,35 @@ Berikut adalah dokumentasi terkait pengisian form dan berkas yang perlu disiapka
 | **Dokumen**   | **Slip Gaji / Penghasilan Ortu**        | Bukti penghasilan wali murid sebagai dasar perhitungan kriteria _Cost_. Format dokumen: PDF/JPG/PNG (Max 5MB).                               |
 
 > **Catatan Pembaruan:** Kolom _Kelas / Konsentrasi Keahlian_ dan _Kartu Keluarga (KK)_ telah dihapus dari sistem dan digantikan sesuai dengan tabel di atas agar proses seleksi lebih relevan dan difokuskan pada ekonomi & prestasi.
+
+## 🗄️ Struktur Tabel Database (Skema)
+
+Berikut adalah deskripsi struktur tabel utama yang digunakan untuk menyimpan data pendaftaran dan pengguna:
+
+### 1. Tabel `users` (Data Pengguna)
+| Nama Kolom | Tipe Data | Panjang (Maksimal) | Keterangan / Validasi |
+| --- | --- | --- | --- |
+| `id` | `bigint(20)` | - | *Primary Key*, Auto Increment |
+| `name` | `varchar` | 255 karakter | Nama lengkap pengguna (huruf saja) |
+| `email` | `varchar` | 255 karakter | Alamat email (Unique) |
+| `role` | `enum` | - | Hak akses: `'admin'`, `'kepsek'`, `'ortu'` |
+| `password` | `varchar` | 255 karakter | Kata sandi (Terenkripsi, minimal 8 karakter) |
+
+### 2. Tabel `applicants` (Data Pendaftar Beasiswa)
+| Nama Kolom | Tipe Data | Panjang (Maksimal) | Keterangan / Validasi |
+| --- | --- | --- | --- |
+| `id` | `bigint(20)` | - | *Primary Key*, Auto Increment |
+| `user_id` | `bigint(20)` | - | *Foreign Key* ke tabel `users` |
+| `period_id` | `bigint(20)` | - | *Foreign Key* ke tabel `periods` (Periode Seleksi) |
+| `nik` | `varchar` | 16 karakter | Nomor Induk Kependudukan (Wajib 16 digit, *Unique*) |
+| `nama_lengkap` | `varchar` | 255 karakter | Nama lengkap siswa |
+| `status_berkas` | `enum` | - | Status pendaftaran: `'draft'`, `'submitted'`, `'verifikasi'`, dll |
+
+### 3. Tabel `applicant_documents` (Berkas Persyaratan)
+| Nama Kolom | Tipe Data | Panjang (Maksimal) | Keterangan / Validasi |
+| --- | --- | --- | --- |
+| `id` | `bigint(20)` | - | *Primary Key*, Auto Increment |
+| `applicant_id`| `bigint(20)` | - | *Foreign Key* ke tabel `applicants` |
+| `jenis_dokumen`| `varchar` | 255 karakter | (SKTM / Transkrip Nilai / Slip Gaji) |
+| `path_file` | `varchar` | 255 karakter | Lokasi direktori tempat file disimpan |
+| `status_verifikasi`| `boolean` | 1 digit (0/1)| Menandakan dokumen disetujui atau ditolak |
