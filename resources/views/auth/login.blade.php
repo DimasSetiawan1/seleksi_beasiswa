@@ -24,21 +24,51 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    <!-- General Error Banner (email/password salah) -->
+    @if ($errors->any())
+        <div class="mb-4 bg-rose-500/10 border border-rose-500/30 text-rose-400 px-4 py-3 rounded-2xl flex items-start gap-3 text-xs font-medium">
+            <svg class="w-4 h-4 text-rose-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+            </svg>
+            <div>
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
     <form method="POST" action="{{ route('login') }}" class="space-y-4">
         @csrf
 
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Alamat Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" placeholder="contoh: ortu@ortu.com" />
-            <x-input-error :messages="$errors->get('email')" class="mt-1 text-xs text-rose-400" />
+            <x-text-input
+                id="email"
+                class="block mt-1 w-full {{ $errors->has('email') ? 'border-rose-500 focus:border-rose-500 focus:ring-rose-500' : '' }}"
+                type="email"
+                name="email"
+                :value="old('email')"
+                required
+                autofocus
+                autocomplete="username"
+                placeholder="contoh: ortu@ortu.com"
+            />
         </div>
 
         <!-- Password -->
         <div>
             <x-input-label for="password" :value="__('Kata Sandi')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" placeholder="••••••••" />
-            <x-input-error :messages="$errors->get('password')" class="mt-1 text-xs text-rose-400" />
+            <x-text-input
+                id="password"
+                class="block mt-1 w-full {{ $errors->has('email') ? 'border-rose-500 focus:border-rose-500 focus:ring-rose-500' : '' }}"
+                type="password"
+                name="password"
+                required
+                autocomplete="current-password"
+                placeholder="••••••••"
+            />
         </div>
 
         <!-- Remember Me & Forgot Password -->
@@ -50,7 +80,7 @@
 
             @if (Route::has('password.request'))
                 <a class="text-xs text-indigo-400 hover:text-indigo-300 transition font-semibold" href="{{ route('password.request') }}">
-                    {{ __('Lupa password?') }}
+                    {{ __('Lupa kata sandi?') }}
                 </a>
             @endif
         </div>
@@ -76,3 +106,4 @@
         }
     </script>
 </x-guest-layout>
+

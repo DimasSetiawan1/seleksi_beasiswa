@@ -84,7 +84,7 @@
                             Daftar Beasiswa Online
                         </a>
                         <a href="{{ route('login') }}" class="bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 font-extrabold text-sm px-8 py-4 rounded-2xl transition">
-                            Login Pengguna
+                            Masuk Pengguna
                         </a>
                     @endauth
                 </div>
@@ -161,7 +161,7 @@
                     <div class="bg-slate-900/40 p-6 rounded-3xl border border-slate-800 text-center">
                         <div class="w-10 h-10 rounded-full bg-indigo-600 text-white font-extrabold text-sm flex items-center justify-center mx-auto mb-4">1</div>
                         <h4 class="font-bold text-sm text-white mb-1">Registrasi Akun</h4>
-                        <p class="text-xs text-slate-400">Siswa mendaftar akun menggunakan email dan password.</p>
+                        <p class="text-xs text-slate-400">Siswa mendaftar akun menggunakan email dan kata sandi.</p>
                     </div>
                     <div class="bg-slate-900/40 p-6 rounded-3xl border border-slate-800 text-center">
                         <div class="w-10 h-10 rounded-full bg-indigo-600 text-white font-extrabold text-sm flex items-center justify-center mx-auto mb-4">2</div>

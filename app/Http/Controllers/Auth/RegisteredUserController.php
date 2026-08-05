@@ -22,19 +22,35 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', 'min:8'],
+            'name'     => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+            'email'    => ['required', 'string', 'lowercase', 'email:rfc,dns', 'max:255', 'unique:' . User::class],
+            'password' => [
+                'required',
+                'string',
+                'confirmed',
+                'min:8',
+                'max:64',
+                'regex:/[a-z]/',       // harus ada huruf kecil
+                'regex:/[A-Z]/',       // harus ada huruf besar
+                'regex:/[0-9]/',       // harus ada angka
+            ],
         ], [
-            'name.regex' => 'Nama hanya boleh terdiri dari huruf dan spasi (tidak boleh ada angka atau karakter spesial).',
-            'password.min' => 'Kata sandi harus memiliki panjang minimal 8 karakter.',
-            'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
-            'email.unique' => 'Alamat email ini telah terdaftar.',
+            'name.required'           => 'Nama lengkap wajib diisi.',
+            'name.max'                => 'Nama lengkap tidak boleh lebih dari 100 karakter.',
+            'name.regex'              => 'Nama hanya boleh berisi huruf dan spasi, tanpa angka atau simbol.',
+            'email.required'          => 'Alamat email wajib diisi.',
+            'email.email'             => 'Format alamat email tidak valid.',
+            'email.unique'            => 'Alamat email ini sudah terdaftar, gunakan email lain.',
+            'password.required'       => 'Kata sandi wajib diisi.',
+            'password.min'            => 'Kata sandi minimal 8 karakter.',
+            'password.max'            => 'Kata sandi maksimal 64 karakter.',
+            'password.confirmed'      => 'Konfirmasi kata sandi tidak cocok.',
+            'password.regex'          => 'Kata sandi harus mengandung huruf besar, huruf kecil, dan angka.',
         ]);
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name'     => $request->name,
+            'email'    => $request->email,
             'password' => Hash::make($request->password),
         ]);
 

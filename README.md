@@ -1,66 +1,114 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Pendukung Keputusan (SPK) Seleksi Beasiswa
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**SMK Tinta Emas**
 
-## About Laravel
+Aplikasi Sistem Pendukung Keputusan (SPK) berbasis web untuk seleksi penerimaan beasiswa prestasi dan ekonomi di SMK Tinta Emas. Sistem ini dibangun menggunakan framework Laravel dan mengimplementasikan metode **AHP (Analytical Hierarchy Process)** untuk pembobotan kriteria dan **MOORA (Multi-Objective Optimization on the basis of Ratio Analysis)** untuk perankingan kandidat.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Sistem ini memiliki 3 hak akses pengguna (Role), yaitu:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Admin (Panitia Beasiswa)
 
-## Learning Laravel
+- **Dashboard**: Ringkasan data pendaftar, kriteria, dan periode aktif.
+- **Manajemen Kriteria & Sub-kriteria**: Mengelola kriteria penilaian (Benefit/Cost) beserta sub-kriterianya.
+- **Perhitungan AHP**: Melakukan perhitungan bobot kriteria menggunakan metode AHP.
+- **Perhitungan MOORA**: Memproses nilai pendaftar untuk menghasilkan ranking kandidat penerima beasiswa.
+- **Verifikasi Kandidat**: Memverifikasi berkas pendaftar dan memberikan penilaian awal.
+- **Laporan**: Mengekspor hasil seleksi beasiswa dalam format PDF maupun Excel.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 2. Kepala Sekolah (Kepsek)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Dashboard**: Memantau progress seleksi beasiswa.
+- **Persetujuan Usulan**: Menyetujui (Approve) atau menolak (Reject) usulan kandidat penerima beasiswa yang diajukan oleh panitia.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. Orang Tua / Wali (Ortu / Pendaftar)
 
-## Laravel Sponsors
+- **Dashboard**: Melihat status pendaftaran dan pengumuman.
+- **Pendaftaran**: Mengisi formulir pendaftaran beasiswa dan mengunggah berkas persyaratan.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🛠 Teknologi yang Digunakan
 
-### Premium Partners
+- **Framework**: Laravel 11.x (PHP 8.2+)
+- **Database**: MySQL / SQLite
+- **Styling**: Tailwind CSS / Bootstrap
+- **PDF Export**: barryvdh/laravel-dompdf
+- **Excel Export**: maatwebsite/excel
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## ⚙️ Cara Instalasi
 
-## Contributing
+Ikuti langkah-langkah di bawah ini untuk menjalankan project di lokal:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. **Clone repository ini**
 
-## Code of Conduct
+    ```bash
+    git clone <url-repo-anda>
+    cd seleksi_beasiswa
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. **Install dependensi Composer**
 
-## Security Vulnerabilities
+    ```bash
+    composer install
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3. **Install dependensi NPM** (Jika ada)
 
-## License
+    ```bash
+    npm install
+    npm run build
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. **Konfigurasi Environment**
+   Salin file `.env.example` menjadi `.env`, lalu atur konfigurasi database (bisa menggunakan sqlite atau mysql).
+
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+
+5. **Jalankan Migrasi & Seeder Database**
+
+    ```bash
+    php artisan migrate --seed
+    ```
+
+6. **Jalankan Local Server**
+    ```bash
+    php artisan serve
+    ```
+    Aplikasi dapat diakses di `http://localhost:8000`.
+
+## 🔐 Akun Default (Testing)
+
+Setelah menjalankan `php artisan migrate --seed`, Anda dapat menggunakan akun berikut untuk login ke dalam sistem:
+
+| Role                 | Email               | Password   |
+| -------------------- | ------------------- | ---------- |
+| **Admin / Panitia**  | `admin@admin.com`   | `password` |
+| **Kepala Sekolah**   | `kepsek@kepsek.com` | `password` |
+| **Orang Tua / Wali** | `ortu@ortu.com`     | `password` |
+
+## 📊 Kriteria Penilaian Default
+
+Secara default (bawaan seeder), sistem menggunakan kriteria penilaian berikut:
+
+1. **Nilai Rata-rata Rapor** (Benefit) - Bobot 35%
+2. **Penghasilan Orang Tua** (Cost) - Bobot 25%
+3. **Jumlah Tanggungan Orang Tua** (Benefit) - Bobot 15%
+4. **Prestasi Akademik / Non-Akademik** (Benefit) - Bobot 15%
+5. **Surat Keterangan Tidak Mampu (SKTM)** (Benefit) - Bobot 10%
+
+## 📝 Dokumentasi Syarat & Ketentuan Pendaftaran (Orang Tua / Wali)
+
+Berikut adalah dokumentasi terkait pengisian form dan berkas yang perlu disiapkan saat pendaftaran beasiswa, beserta aturan validasinya:
+
+| Kategori      | Nama Kolom / Berkas                     | Aturan Validasi & Ketentuan                                                                                                                  |
+| ------------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Identitas** | **NIK (Nomor Induk Kependudukan)**      | Wajib 16 digit angka. Terkunci (_read-only_) permanen dan tidak dapat diubah lagi setelah disimpan.                                          |
+| **Identitas** | **Nama Lengkap Siswa/Ortu**             | Hanya diperbolehkan memasukkan huruf dan spasi (Validasi _Regex_).                                                                           |
+| **Dokumen**   | **Surat Keterangan Tidak Mampu (SKTM)** | Penilaian menggunakan sub-kriteria: **Memiliki** (Poin Tinggi) atau **Tidak Memiliki** (Poin Rendah). Format dokumen: PDF/JPG/PNG (Max 5MB). |
+| **Dokumen**   | **Transkrip Nilai**                     | Dokumen hasil studi untuk mengevaluasi nilai akademik (menggantikan rapor semester terakhir). Format: PDF/JPG/PNG (Max 5MB).                 |
+| **Dokumen**   | **Slip Gaji / Penghasilan Ortu**        | Bukti penghasilan wali murid sebagai dasar perhitungan kriteria _Cost_. Format dokumen: PDF/JPG/PNG (Max 5MB).                               |
+
+> **Catatan Pembaruan:** Kolom _Kelas / Konsentrasi Keahlian_ dan _Kartu Keluarga (KK)_ telah dihapus dari sistem dan digantikan sesuai dengan tabel di atas agar proses seleksi lebih relevan dan difokuskan pada ekonomi & prestasi.

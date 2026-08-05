@@ -40,7 +40,6 @@
                             <th class="px-6 py-4 text-center font-bold text-slate-600 uppercase tracking-wider">Peringkat</th>
                             <th class="px-6 py-4 text-left font-bold text-slate-600 uppercase tracking-wider">NIK</th>
                             <th class="px-6 py-4 text-left font-bold text-slate-600 uppercase tracking-wider">Nama Siswa</th>
-                            <th class="px-6 py-4 text-left font-bold text-slate-600 uppercase tracking-wider">Kelas</th>
                             <th class="px-6 py-4 text-left font-bold text-slate-600 uppercase tracking-wider">Skor Akhir Evaluasi</th>
                         </tr>
                     </thead>
@@ -50,7 +49,6 @@
                                 <td class="px-6 py-4 text-center font-black font-mono">#{{ $res->rank }}</td>
                                 <td class="px-6 py-4 font-mono text-slate-500">{{ $res->applicant->nik }}</td>
                                 <td class="px-6 py-4 font-bold text-slate-900">{{ $res->applicant->nama_lengkap }}</td>
-                                <td class="px-6 py-4 text-slate-600 font-semibold">{{ $res->applicant->kelas }}</td>
                                 <td class="px-6 py-4 font-mono font-extrabold text-indigo-700">{{ number_format($res->nilai_optimasi_yi, 4) }}</td>
                             </tr>
                         @empty

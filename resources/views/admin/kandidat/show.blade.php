@@ -32,7 +32,6 @@
                         </div>
                         <div>
                             <h3 class="font-extrabold text-lg text-slate-800">{{ $applicant->nama_lengkap }}</h3>
-                            <p class="text-xs text-slate-500 font-mono">{{ $applicant->kelas }}</p>
                         </div>
                     </div>
 

@@ -68,7 +68,6 @@
                         <tr>
                             <th class="px-6 py-4 text-center font-bold text-slate-600 uppercase tracking-wider">Peringkat</th>
                             <th class="px-6 py-4 text-left font-bold text-slate-600 uppercase tracking-wider">Pendaftar</th>
-                            <th class="px-6 py-4 text-left font-bold text-slate-600 uppercase tracking-wider">Kelas</th>
                             <th class="px-6 py-4 text-left font-bold text-slate-600 uppercase tracking-wider">Skor Akhir Evaluasi</th>
                             <th class="px-6 py-4 text-center font-bold text-slate-600 uppercase tracking-wider">Rekomendasi</th>
                         </tr>
@@ -91,7 +90,6 @@
                                     {{ $res->applicant->nama_lengkap }}
                                     <div class="font-mono text-[11px] text-slate-400 font-normal">NIK: {{ $res->applicant->nik }}</div>
                                 </td>
-                                <td class="px-6 py-4 font-semibold text-slate-700">{{ $res->applicant->kelas }}</td>
                                 <td class="px-6 py-4 font-mono font-extrabold text-indigo-700 text-sm">
                                     {{ number_format($res->nilai_optimasi_yi, 4) }}
                                 </td>

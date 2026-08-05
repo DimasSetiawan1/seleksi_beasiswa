@@ -26,7 +26,7 @@ class CandidatesExport implements FromCollection, WithHeadings, WithMapping
 
     public function headings(): array
     {
-        return ['Ranking', 'NIK', 'Nama Lengkap', 'Kelas', 'Nilai Optimasi MOORA'];
+        return ['Ranking', 'NIK', 'Nama Lengkap', 'Nilai Optimasi MOORA'];
     }
 
     public function map($row): array
@@ -35,7 +35,6 @@ class CandidatesExport implements FromCollection, WithHeadings, WithMapping
             $row->rank,
             $row->applicant->nik ?? '',
             $row->applicant->nama_lengkap ?? '',
-            $row->applicant->kelas ?? '',
             $row->nilai_optimasi_yi,
         ];
     }

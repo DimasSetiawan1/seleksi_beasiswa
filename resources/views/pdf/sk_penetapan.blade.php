@@ -37,7 +37,6 @@
                 <th style="width: 40px; text-align:center;">Peringkat</th>
                 <th>NIK</th>
                 <th>Nama Siswa</th>
-                <th>Kelas</th>
                 <th style="width: 100px; text-align:center;">Skor Akhir Evaluasi</th>
             </tr>
         </thead>
@@ -47,7 +46,6 @@
                     <td style="text-align:center; font-weight:bold;">#{{ $res->rank }}</td>
                     <td>{{ $res->applicant->nik }}</td>
                     <td><strong>{{ $res->applicant->nama_lengkap }}</strong></td>
-                    <td>{{ $res->applicant->kelas }}</td>
                     <td style="text-align:center;">{{ number_format($res->nilai_optimasi_yi, 4) }}</td>
                 </tr>
             @endforeach

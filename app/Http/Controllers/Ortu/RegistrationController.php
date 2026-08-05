@@ -39,30 +39,69 @@ class RegistrationController extends Controller
             return redirect()->back()->with('error', 'Tidak ada periode pendaftaran aktif.');
         }
 
-        $validated = $request->validate([
-            'nik' => ['required', 'numeric', 'digits:16'],
+        $user = auth()->user();
+
+        // Cek apakah sudah ada applicant (untuk lock NIK)
+        $existingApplicant = Applicant::where('user_id', $user->id)
+            ->where('period_id', $period->id)
+            ->first();
+
+        $nikAlreadySet = $existingApplicant && $existingApplicant->nik;
+
+        // Rules validasi
+        $rules = [
             'nama_lengkap' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
-            'kelas' => ['required', 'string', 'max:50', 'regex:/^[a-zA-Z0-9\s\-]+$/'],
-            'scores' => ['required', 'array'],
-        ], [
-            'nik.digits' => 'NIK harus berjumlah tepat 16 digit angka.',
-            'nik.numeric' => 'NIK hanya boleh berupa angka.',
-            'nama_lengkap.regex' => 'Nama lengkap siswa hanya boleh berupa huruf dan spasi (tidak boleh ada angka atau karakter spesial).',
-            'kelas.regex' => 'Format kelas tidak valid.',
-            'scores.required' => 'Wajib memilih seluruh pilihan kondisi kriteria penilaian.',
-        ]);
+            'scores'       => ['required', 'array'],
+        ];
+
+        $messages = [
+            'nama_lengkap.regex'   => 'Nama lengkap hanya boleh berisi huruf dan spasi, tanpa angka atau karakter spesial.',
+            'scores.required'      => 'Wajib memilih seluruh pilihan kondisi kriteria penilaian.',
+        ];
+
+        // Validasi NIK hanya jika belum terkunci
+        if (!$nikAlreadySet) {
+            $rules['nik'] = [
+                'required',
+                'numeric',
+                'digits:16',
+                function ($attribute, $value, $fail) use ($existingApplicant) {
+                    // NIK tidak boleh semua angka yang sama (e.g. 0000000000000000)
+                    if (preg_match('/^(.)\1{15}$/', $value)) {
+                        $fail('NIK tidak valid. Pastikan NIK sesuai dengan KTP/KK.');
+                        return;
+                    }
+                    // Cek duplikat NIK dari applicant lain
+                    $duplicate = \App\Models\Applicant::where('nik', $value)
+                        ->when($existingApplicant, fn($q) => $q->where('id', '!=', $existingApplicant->id))
+                        ->exists();
+                    if ($duplicate) {
+                        $fail('NIK tersebut sudah terdaftar oleh pendaftar lain.');
+                    }
+                },
+            ];
+            $messages['nik.digits']   = 'NIK harus berjumlah tepat 16 digit angka.';
+            $messages['nik.numeric']  = 'NIK hanya boleh berupa angka.';
+        }
+
+        $validated = $request->validate($rules, $messages);
+
+        $applicantData = [
+            'nama_lengkap'  => $validated['nama_lengkap'],
+            'status_berkas' => 'draft',
+        ];
+
+        // Hanya set NIK jika belum ada
+        if (!$nikAlreadySet) {
+            $applicantData['nik'] = $validated['nik'];
+        }
 
         $applicant = Applicant::updateOrCreate(
             [
-                'user_id' => auth()->id(),
-                'period_id' => $period->id
+                'user_id'   => $user->id,
+                'period_id' => $period->id,
             ],
-            [
-                'nik' => $validated['nik'],
-                'nama_lengkap' => $validated['nama_lengkap'],
-                'kelas' => $validated['kelas'],
-                'status_berkas' => 'draft'
-            ]
+            $applicantData
         );
 
         // Save selected sub-criteria values directly into scores
@@ -70,7 +109,7 @@ class RegistrationController extends Controller
             ApplicantScore::updateOrCreate(
                 [
                     'applicant_id' => $applicant->id,
-                    'criteria_id' => $criteriaId
+                    'criteria_id'  => $criteriaId
                 ],
                 [
                     'nilai_kriteria' => floatval($scoreVal)

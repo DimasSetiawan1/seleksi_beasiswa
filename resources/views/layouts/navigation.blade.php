@@ -65,33 +65,43 @@
                     ✦ @if(Auth::user()->role === 'admin') Panitia Beasiswa @elseif(Auth::user()->role === 'kepsek') Kepala Sekolah @else Orang Tua / Wali @endif
                 </span>
 
-                <x-dropdown align="right" width="48">
+                <x-dropdown align="right" width="52">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-1.5 border border-slate-700 text-xs font-semibold rounded-xl text-slate-200 bg-slate-800 hover:bg-slate-700 hover:text-white focus:outline-none transition">
-                            <div class="flex items-center gap-2">
-                                <div class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-[10px] shrink-0">
-                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                                </div>
-                                <span class="max-w-[120px] truncate">{{ Auth::user()->name }}</span>
+                        <button class="inline-flex items-center px-3 py-1.5 border border-slate-700 text-xs font-semibold rounded-xl text-slate-200 bg-slate-800 hover:bg-slate-700 hover:text-white focus:outline-none transition gap-2">
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-700 text-white flex items-center justify-center font-bold text-[10px] shrink-0 shadow-md shadow-indigo-500/30">
+                                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                             </div>
-                            <svg class="fill-current h-4 w-4 ms-1.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <span class="max-w-[120px] truncate">{{ Auth::user()->name }}</span>
+                            <svg class="fill-current h-3.5 w-3.5 text-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                         </button>
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')" class="text-xs">
-                            {{ __('Profil Akun') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="text-xs text-red-600 font-semibold">
-                                {{ __('Keluar (Logout)') }}
+                        <div class="px-4 py-3 border-b border-slate-700">
+                            <p class="text-[10px] text-slate-400 font-medium">Masuk sebagai</p>
+                            <p class="text-xs font-bold text-white truncate mt-0.5">{{ Auth::user()->name }}</p>
+                        </div>
+                        <div class="py-1">
+                            <x-dropdown-link :href="route('profile.edit')">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                    Profil Akun
+                                </span>
                             </x-dropdown-link>
-                        </form>
+                        </div>
+                        <div class="border-t border-slate-700 py-1">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="!text-rose-400 hover:!text-rose-300 hover:!bg-rose-500/10">
+                                    <span class="flex items-center gap-2">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                                        Keluar
+                                    </span>
+                                </x-dropdown-link>
+                            </form>
+                        </div>
                     </x-slot>
                 </x-dropdown>
             </div>
@@ -109,36 +119,78 @@
     </div>
 
     <!-- Responsive Navigation Menu (Mobile & Tablet Drawer) -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden xl:hidden bg-slate-900 border-t border-slate-800 px-4 py-4 space-y-2">
-        <div class="pb-2 border-b border-slate-800 flex justify-between items-center text-xs">
-            <div class="font-bold text-slate-200">{{ Auth::user()->name }}</div>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                @if(Auth::user()->role === 'admin') Panitia Beasiswa @elseif(Auth::user()->role === 'kepsek') Kepala Sekolah @else Orang Tua / Wali @endif
-            </span>
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden xl:hidden bg-slate-900/98 backdrop-blur-sm border-t border-slate-800">
+
+        <!-- User Info Header -->
+        <div class="px-5 py-4 flex items-center gap-3 bg-slate-800/50 border-b border-slate-700/60">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 text-white flex items-center justify-center font-extrabold text-sm shadow-lg shadow-indigo-500/30">
+                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+            </div>
+            <div class="flex-1 min-w-0">
+                <p class="text-sm font-bold text-white truncate">{{ Auth::user()->name }}</p>
+                <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider mt-0.5
+                    @if(Auth::user()->role === 'admin') bg-indigo-500/20 text-indigo-300 border border-indigo-500/30
+                    @elseif(Auth::user()->role === 'kepsek') bg-amber-500/20 text-amber-300 border border-amber-500/30
+                    @else bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 @endif">
+                    @if(Auth::user()->role === 'admin') Panitia Beasiswa
+                    @elseif(Auth::user()->role === 'kepsek') Kepala Sekolah
+                    @else Orang Tua / Wali @endif
+                </span>
+            </div>
         </div>
 
-        <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-slate-200">
-            Dashboard
-        </x-responsive-nav-link>
+        <!-- Nav Links -->
+        <div class="px-3 py-3 space-y-1">
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard') || request()->routeIs('*.dashboard')">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                Dashboard
+            </x-responsive-nav-link>
 
-        @if(Auth::user()->role === 'admin')
-            <x-responsive-nav-link :href="route('admin.kriteria.index')" :active="request()->routeIs('admin.kriteria.*')" class="text-slate-200">Kriteria & Sub-Kriteria</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.ahp.index')" :active="request()->routeIs('admin.ahp.*')" class="text-slate-200">Bobot Kriteria</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.kandidat.index')" :active="request()->routeIs('admin.kandidat.*')" class="text-slate-200">Data Pendaftar</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.moora.index')" :active="request()->routeIs('admin.moora.*')" class="text-slate-200">Hasil Perangkingan</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.laporan.index')" :active="request()->routeIs('admin.laporan.*')" class="text-slate-200">Laporan & Cetak PDF</x-responsive-nav-link>
-        @elseif(Auth::user()->role === 'kepsek')
-            <x-responsive-nav-link :href="route('kepsek.usulan.index')" :active="request()->routeIs('kepsek.usulan.*')" class="text-slate-200">Persetujuan Hasil Seleksi</x-responsive-nav-link>
-        @elseif(Auth::user()->role === 'ortu')
-            <x-responsive-nav-link :href="route('ortu.pendaftaran.index')" :active="request()->routeIs('ortu.pendaftaran.*')" class="text-slate-200">Form Pendaftaran Siswa</x-responsive-nav-link>
-        @endif
+            @if(Auth::user()->role === 'admin')
+                <x-responsive-nav-link :href="route('admin.kriteria.index')" :active="request()->routeIs('admin.kriteria.*')">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    Kriteria & Sub-Kriteria
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.ahp.index')" :active="request()->routeIs('admin.ahp.*')">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    Bobot Kriteria (AHP)
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.kandidat.index')" :active="request()->routeIs('admin.kandidat.*')">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    Data Pendaftar
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.moora.index')" :active="request()->routeIs('admin.moora.*')">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                    Hasil Perangkingan
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.laporan.index')" :active="request()->routeIs('admin.laporan.*')">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Laporan & Cetak PDF
+                </x-responsive-nav-link>
+            @elseif(Auth::user()->role === 'kepsek')
+                <x-responsive-nav-link :href="route('kepsek.usulan.index')" :active="request()->routeIs('kepsek.usulan.*')">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Persetujuan Hasil Seleksi
+                </x-responsive-nav-link>
+            @elseif(Auth::user()->role === 'ortu')
+                <x-responsive-nav-link :href="route('ortu.pendaftaran.index')" :active="request()->routeIs('ortu.pendaftaran.*')">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    Form Pendaftaran Siswa
+                </x-responsive-nav-link>
+            @endif
+        </div>
 
-        <div class="pt-2 border-t border-slate-800">
-            <x-responsive-nav-link :href="route('profile.edit')" class="text-slate-300">Profil Akun</x-responsive-nav-link>
+        <!-- Account Actions -->
+        <div class="px-3 pb-4 pt-1 border-t border-slate-700/60 space-y-1 mt-1">
+            <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.*')">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                Profil Akun
+            </x-responsive-nav-link>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="text-red-400 font-semibold">
-                    Keluar (Logout)
+                <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="!text-rose-400 hover:!text-rose-300 hover:!bg-rose-500/10 hover:!border-rose-500/30">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    Keluar
                 </x-responsive-nav-link>
             </form>
         </div>

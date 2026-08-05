@@ -113,19 +113,16 @@ class DatabaseSeeder extends Seeder
         SubCriteria::create(['criteria_id' => $c4->id, 'nama_subkriteria' => 'Juara Tingkat Nasional/Internasional', 'nilai' => 5]);
 
         $c5 = Criteria::create([
-            'nama_kriteria' => 'Persentase Kehadiran Siswa',
+            'nama_kriteria' => 'Surat Keterangan Tidak Mampu (SKTM)',
             'tipe' => 'benefit',
-            'deskripsi' => 'Tingkat kedisiplinan dan absensi siswa di kelas',
+            'deskripsi' => 'Kepemilikan SKTM yang diterbitkan oleh pejabat berwenang',
             'skala_min' => 1,
             'skala_max' => 5,
             'bobot' => 0.10
         ]);
 
-        SubCriteria::create(['criteria_id' => $c5->id, 'nama_subkriteria' => 'Kehadiran < 75%', 'nilai' => 1]);
-        SubCriteria::create(['criteria_id' => $c5->id, 'nama_subkriteria' => 'Kehadiran 75% - 80%', 'nilai' => 2]);
-        SubCriteria::create(['criteria_id' => $c5->id, 'nama_subkriteria' => 'Kehadiran 81% - 88%', 'nilai' => 3]);
-        SubCriteria::create(['criteria_id' => $c5->id, 'nama_subkriteria' => 'Kehadiran 89% - 95%', 'nilai' => 4]);
-        SubCriteria::create(['criteria_id' => $c5->id, 'nama_subkriteria' => 'Kehadiran 96% - 100%', 'nilai' => 5]);
+        SubCriteria::create(['criteria_id' => $c5->id, 'nama_subkriteria' => 'Tidak Memiliki SKTM', 'nilai' => 1]);
+        SubCriteria::create(['criteria_id' => $c5->id, 'nama_subkriteria' => 'Memiliki SKTM', 'nilai' => 5]);
 
         // 4. Sample Applicants Data
         $applicant1 = Applicant::create([
@@ -133,7 +130,6 @@ class DatabaseSeeder extends Seeder
             'period_id' => $period->id,
             'nik' => '3275012304050001',
             'nama_lengkap' => 'Ahmad Fauzi',
-            'kelas' => 'XII RPL 1',
             'status_berkas' => 'verifikasi'
         ]);
 
@@ -155,7 +151,6 @@ class DatabaseSeeder extends Seeder
             'period_id' => $period->id,
             'nik' => '3275012304050002',
             'nama_lengkap' => 'Siti Nurhaliza',
-            'kelas' => 'XII TKJ 2',
             'status_berkas' => 'verifikasi'
         ]);
 

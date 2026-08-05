@@ -31,7 +31,6 @@
                     <thead class="bg-slate-50/80">
                         <tr>
                             <th class="px-6 py-4 text-left font-bold text-slate-600 uppercase tracking-wider">Pendaftar</th>
-                            <th class="px-6 py-4 text-left font-bold text-slate-600 uppercase tracking-wider">Kelas</th>
                             <th class="px-6 py-4 text-left font-bold text-slate-600 uppercase tracking-wider">Status Berkas</th>
                             <th class="px-6 py-4 text-center font-bold text-slate-600 uppercase tracking-wider">Input Sub-Kriteria</th>
                             <th class="px-6 py-4 text-center font-bold text-slate-600 uppercase tracking-wider">Aksi</th>
@@ -51,7 +50,6 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 font-semibold text-slate-700">{{ $app->kelas }}</td>
                                 <td class="px-6 py-4">
                                     <span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider border inline-block
                                         @if($app->status_berkas === 'draft') bg-amber-500/10 text-amber-700 border-amber-500/30
