@@ -38,6 +38,12 @@ class MOORAController extends Controller
         return view('admin.moora.index', compact('period', 'mooraResults', 'proposal'));
     }
 
+    public function show($id)
+    {
+        $mooraResult = MooraResult::with(['applicant.scores.criteria'])->findOrFail($id);
+        return view('admin.moora.show', compact('mooraResult'));
+    }
+
     public function calculate(Request $request)
     {
         $period = Period::where('status', 1)->first();
@@ -58,8 +64,11 @@ class MOORAController extends Controller
             ];
         }
 
-        // Gather applicants with complete scores
-        $applicants = Applicant::with('scores')->where('period_id', $period->id)->get();
+        // Gather applicants with complete scores and verified status
+        $applicants = Applicant::with('scores')
+            ->where('period_id', $period->id)
+            ->where('status_berkas', 'verifikasi')
+            ->get();
 
         $candidatesData = [];
         foreach ($applicants as $app) {

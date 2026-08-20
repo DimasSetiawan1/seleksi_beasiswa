@@ -34,6 +34,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::get('/ahp', [AHPController::class, 'index'])->name('ahp.index');
     Route::post('/ahp/calculate', [AHPController::class, 'calculate'])->name('ahp.calculate');
     Route::get('/moora', [MOORAController::class, 'index'])->name('moora.index');
+    Route::get('/moora/{id}', [MOORAController::class, 'show'])->name('moora.show');
     Route::post('/moora/calculate', [MOORAController::class, 'calculate'])->name('moora.calculate');
     Route::post('/moora/send', [MOORAController::class, 'sendProposal'])->name('moora.send');
     Route::get('/kandidat', [CandidateController::class, 'index'])->name('kandidat.index');

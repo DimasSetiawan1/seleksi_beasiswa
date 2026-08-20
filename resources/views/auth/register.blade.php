@@ -1,8 +1,13 @@
 <x-guest-layout>
     <!-- Header Title -->
-    <div class="text-center mb-6">
-        <h2 class="text-xl font-extrabold text-white">Daftar Akun Baru</h2>
-        <p class="text-xs text-slate-400 mt-1">Registrasi akun Orang Tua / Wali Siswa untuk pendaftaran beasiswa.</p>
+    <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-indigo-500/10 mb-4">
+            <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
+        </div>
+        <h2 class="text-2xl font-extrabold text-white mb-2">Mari Bergabung Bersama Kami ✨</h2>
+        <p class="text-sm text-slate-400 leading-relaxed px-4">
+            Langkah awal yang tepat untuk masa depan gemilang putra-putri Anda. <br class="hidden sm:block">Silakan isi formulir di bawah ini untuk membuat akun baru. 🎓
+        </p>
     </div>
 
     <form method="POST" action="{{ route('register') }}" class="space-y-4" id="registerForm">

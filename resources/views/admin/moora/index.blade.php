@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <!-- Table MOORA -->
+        <!-- Table Perangkingan -->
         <div class="bg-white rounded-3xl shadow-sm border border-slate-200/80 overflow-hidden">
             <div class="p-6 border-b border-slate-100 flex justify-between items-center">
                 <h3 class="font-extrabold text-lg text-slate-800">Tabel Peringkat Kandidat Penerima Beasiswa</h3>
@@ -68,7 +68,7 @@
                         <tr>
                             <th class="px-6 py-4 text-center font-bold text-slate-600 uppercase tracking-wider">Peringkat</th>
                             <th class="px-6 py-4 text-left font-bold text-slate-600 uppercase tracking-wider">Pendaftar</th>
-                            <th class="px-6 py-4 text-left font-bold text-slate-600 uppercase tracking-wider">Skor Akhir Evaluasi</th>
+                            <th class="px-6 py-4 text-center font-bold text-slate-600 uppercase tracking-wider">Detail</th>
                             <th class="px-6 py-4 text-center font-bold text-slate-600 uppercase tracking-wider">Rekomendasi</th>
                         </tr>
                     </thead>
@@ -90,8 +90,10 @@
                                     {{ $res->applicant->nama_lengkap }}
                                     <div class="font-mono text-[11px] text-slate-400 font-normal">NIK: {{ $res->applicant->nik }}</div>
                                 </td>
-                                <td class="px-6 py-4 font-mono font-extrabold text-indigo-700 text-sm">
-                                    {{ number_format($res->nilai_optimasi_yi, 4) }}
+                                <td class="px-6 py-4 text-center">
+                                    <a href="{{ route('admin.moora.show', $res->id) }}" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 underline bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-100 transition">
+                                        Lihat Alasan
+                                    </a>
                                 </td>
                                 <td class="px-6 py-4 text-center">
                                     @if($res->rank <= 5)

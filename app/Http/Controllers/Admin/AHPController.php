@@ -31,8 +31,25 @@ class AHPController extends Controller
         if ($period && $criterias->count() > 0) {
             // Load existing matrix if stored
             $matrices = AhpMatrix::where('period_id', $period->id)->get();
-            foreach ($matrices as $m) {
-                $existingMatrix[$m->criteria_i_id][$m->criteria_j_id] = $m->nilai_perbandingan;
+            if ($matrices->count() > 0) {
+                foreach ($matrices as $m) {
+                    $existingMatrix[$m->criteria_i_id][$m->criteria_j_id] = $m->nilai_perbandingan;
+                }
+            } else if ($criterias->count() === 5) {
+                // Provide a default consistent matrix (CR < 0.1) for 5 standard criteria
+                $defaultVals = [
+                    [1, 0.3333, 3, 3, 0.3333],
+                    [3, 1, 3, 5, 0.5],
+                    [0.3333, 0.3333, 1, 2, 0.2],
+                    [0.3333, 0.2, 0.5, 1, 0.1428],
+                    [3, 2, 5, 7, 1]
+                ];
+                $cIds = $criterias->pluck('id')->toArray();
+                for ($i = 0; $i < 5; $i++) {
+                    for ($j = 0; $j < 5; $j++) {
+                        $existingMatrix[$cIds[$i]][$cIds[$j]] = $defaultVals[$i][$j];
+                    }
+                }
             }
 
             // Load existing results
