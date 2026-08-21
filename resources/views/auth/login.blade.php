@@ -1,4 +1,22 @@
 <x-guest-layout>
+    <!-- Rujukan / Ajakan Daftar Beasiswa -->
+    <div class="mb-6 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-emerald-500/10 border border-indigo-500/20 p-4 rounded-2xl text-center shadow-inner relative overflow-hidden">
+        <div class="absolute -right-4 -top-4 w-16 h-16 bg-indigo-500/20 rounded-full blur-xl"></div>
+        <div class="absolute -left-4 -bottom-4 w-16 h-16 bg-emerald-500/20 rounded-full blur-xl"></div>
+        
+        <div class="relative z-10">
+            <h3 class="text-sm font-extrabold text-white mb-1.5 flex items-center justify-center gap-2">
+                <span>🎓</span> Pendaftaran Beasiswa Dibuka!
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                Wujudkan impian masa depan pendidikan putra-putri Anda dengan dukungan beasiswa dari kami.
+            </p>
+            <a href="{{ route('register') }}" class="inline-block bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-bold px-5 py-2 rounded-xl transition shadow-lg shadow-indigo-600/30">
+                Buat Akun Sekarang &rarr;
+            </a>
+        </div>
+    </div>
+
     <!-- Header Title -->
     <div class="text-center mb-6">
         <h2 class="text-xl font-extrabold text-white">Masuk Akun Pengguna</h2>
