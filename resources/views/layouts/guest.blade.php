@@ -17,6 +17,13 @@
 
         <style>
             body { font-family: 'Plus Jakarta Sans', sans-serif; }
+            input:-webkit-autofill,
+            input:-webkit-autofill:hover, 
+            input:-webkit-autofill:focus {
+                -webkit-text-fill-color: #f8fafc !important;
+                -webkit-box-shadow: 0 0 0px 1000px #0f172a inset !important;
+                transition: background-color 5000s ease-in-out 0s;
+            }
         </style>
     </head>
     <body class="font-sans antialiased text-slate-100 bg-slate-950 min-h-full flex flex-col justify-center relative overflow-x-hidden selection:bg-indigo-500 selection:text-white">

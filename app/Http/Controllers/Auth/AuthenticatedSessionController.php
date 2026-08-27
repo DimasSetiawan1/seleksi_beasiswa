@@ -20,6 +20,22 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
+     * Display the admin login view.
+     */
+    public function createAdmin(): View
+    {
+        return view('auth.admin-login');
+    }
+
+    /**
+     * Display the kepsek login view.
+     */
+    public function createKepsek(): View
+    {
+        return view('auth.kepsek-login');
+    }
+
+    /**
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
